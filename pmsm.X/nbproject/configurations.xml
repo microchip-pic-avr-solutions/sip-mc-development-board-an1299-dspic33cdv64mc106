@@ -84,7 +84,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>dsPIC33CK64MC105</targetDevice>
+        <targetDevice>dsPIC33CDVL64MC106</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pkob4hybrid</platformTool>
@@ -93,7 +93,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="dsPIC33CK-MC_DFP" vendor="Microchip" version="1.4.92"/>
+        <pack name="dsPIC33CD-MC_DFP" vendor="Microchip" version="1.0.1"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -568,8 +568,6 @@
         <property key="communication.interface" value=""/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="${communication.speed.default}"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
