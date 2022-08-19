@@ -126,8 +126,8 @@ int main ( void )
     ResetParmeters();
     SetupGPIOPorts();
     CN_PortDEnable();
-    /* Turn on LED2 to indicate the device is programmed */
-    LED2 = 1;
+    /* Turn on LED1 to indicate the device is programmed */
+    LED1 = 1;
     /* Initialize Peripherals */
     InitPeripherals();
     DiagnosticsInit();
@@ -153,17 +153,17 @@ int main ( void )
                 if  (uGF.bits.RunMotor == 1)
                 {
                     ResetParmeters();
-                    LED1 = 0;
+                    LED2 = 0;
                 }
                 else
                 {
                     EnablePWMOutputsInverterA();
                     uGF.bits.RunMotor = 1;
-                    LED1 = 1;
+                    LED2 = 1;
                 }
 
             }
-            // Monitoring for Button 2 press in LVMC
+            // Monitoring for Button 2 press
             if (IsPressed_Button2())
             {
                 if ((uGF.bits.RunMotor == 1) && (uGF.bits.OpenLoop == 0))
@@ -756,14 +756,14 @@ void __attribute__((__interrupt__,no_auto_psv)) _PWMInterrupt()
 {
     ResetParmeters();
     ClearPWMPCIFaultInverterA();
-    LED2 = 0;
+    LED1 = 0;
     ClearPWMIF(); 
 }
 void __attribute__ ((interrupt, no_auto_psv)) _CNDInterrupt(void)
 {
     if(BSP_LATCH_GATE_DRIVER_A_FAULT == true)
     {
-        LED2 = 0;
+        LED1 = 0;
         HAL_Board_Board_FaultClear();
     }
     CN_PortDInterruptFlagClear();
