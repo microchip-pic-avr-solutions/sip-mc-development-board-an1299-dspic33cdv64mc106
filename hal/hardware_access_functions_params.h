@@ -54,19 +54,6 @@
 
 
 /******************************************************************************/
-/* Section: Public constants                                                  */
-/******************************************************************************/
-
-#define MCAF_BOARD_BOOTSTRAP_SEQUENCE_DELAY 2
-#define MCAF_BOARD_BOOTSTRAP_PHASE_DELAY    100
-#define MCAF_BOARD_BOOTSTRAP_INITIAL_DELAY  1
-
-#define BSP_EMULATED_BUTTON_DELAY_COUNT     3000
-#define BSP_BUTTON_HOLDOFF_COUNT            100
-
-#define BSP_BUTTON_DEBOUNCE_DELAY_COUNT     200
-
-/******************************************************************************/
 /* Section: Private constants used by MCP802x driver                          */
 /******************************************************************************/
 
@@ -99,8 +86,14 @@
  */
 #define BSP_GATE_DRIVER_INSTANCE_COUNT      1
 #define BSP_GATE_DRIVER_A_INDEX             0
-
+/*Scaler for Baud Rate 9600 bps*/
 #define GATE_DRIVER_COMM_BAUDRATE_SCALER   650
+/*Scaler for Baud Rate 10170 bps(High Limit)*/
+#define GATE_DRIVER_COMM_BAUDRATE_SCALER_MIN   613
+/*Scaler for Baud Rate 9030 bps(Low Limit)*/
+#define GATE_DRIVER_COMM_BAUDRATE_SCALER_MAX   691
+/*Scaler for Baud Rate 7880 bps*/
+#define GATE_DRIVER_COMM_ABAUD_BREAK_WINDOW_SCALER  792
 
 #define GATE_DRIVER_FAULT_CLEARING_PULSE_WIDTH 5
 
@@ -176,4 +169,14 @@ of the status of the regulator.   */
     Timeout is initialized as 16 (corresponds to 4ms)
 */
 #define GATE_DRIVER_READSTATUS_SETRXPIN_TIMEOUT 0
+
+/** The time duration to wait after initiating Break Character Sequence 
+* in mSec */    
+#define GATE_DRIVER_ABAUD_BREAK_SEQUENCE_TIMEOUT       1
+/** The time duration to wait after transmitting the Break Character for 
+* Auto Baud in mSec */    
+#define GATE_DRIVER_ABAUD_CHARACTER_RECIEVE_TIMEOUT    4 
+/** Dummy Data to be sent to initiate Break Character Transmit Sequence */
+#define GATE_DRIVER_ABAUD_BREAK_SEQUENCE_DUMMY_DATA    0x00
+
 #endif /* __HAF_PARAMS_H */

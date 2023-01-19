@@ -104,7 +104,7 @@ extern void PWMDutyCycleSet(MC_DUTYCYCLEOUT_T *);
 extern void pwmDutyCycleLimitCheck(MC_DUTYCYCLEOUT_T *,uint16_t,uint16_t);
 
 extern volatile uint16_t systemState;
-extern volatile HAL_BOARD_STATUS runtimeState;
+extern volatile uint16_t runtimeState;
 #ifdef __cplusplus
 }
 #endif

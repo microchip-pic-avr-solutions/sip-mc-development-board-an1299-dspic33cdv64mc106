@@ -148,10 +148,17 @@ typedef struct
     void (*TransmitModeEnable)(void);
     void (*TransmitModeDisable)(void);
     void (*ReceiveBufferEmpty)(void);
+    bool (*IsTransmissionComplete)(void);
+    void (*TransmitBreakRequestFlagSet)(void);
+    void (*AutoBaudEnable)(void);
+    void (*AutoBaudDisable)(void);
+    bool (*IsAutoBaudComplete)(void);
     bool (*StatusBufferFullTransmitGet)(void);
     bool (*IsReceiveBufferDataReady)(void);
     void (*DataWrite)(uint16_t);
     uint16_t (*DataRead)(void);
+    uint16_t (*BaudRateDivisorRead)(void);
+    void (*TransmitBufferEmptyFlagClear)(void);
     
 } GATE_DRIVER_HOST_INTERFACE;
 
@@ -411,8 +418,10 @@ typedef enum tagGATE_DRIVER_OPERATION_STATE
     GATE_DRIVER_OP_DONE = 4,                    
     /* Gate Driver Handler is performing the Requested Operation */       
     GATE_DRIVER_OP_BUSY = 5,               
-    /** Gate Driver is installed and is ready for operation */   
-    GATE_DRIVER_OP_READY   = 6,                        
+    /* Gate Driver is installed and is ready for operation */   
+    GATE_DRIVER_OP_READY   = 6, 
+    /* Gate Driver performing Auto Baud Sequence */ 
+    GATE_DRIVER_OP_AUTOBAUD = 7
 }GATE_DRIVER_OPERATION_STATE;
 
 /** 
@@ -431,9 +440,11 @@ typedef enum tagGATE_DRIVER_CONFIG_STATE
             
     /* Gate Driver configuration had some issues ,indicates application
        retry configuring gate driver */     
-    GATE_DRIVER_CONFIG_TRYAGAIN = 3,            
+    GATE_DRIVER_CONFIG_TRYAGAIN = 3,       
+    /** Auto Baud sequence is being executed */
+    GATE_DRIVER_CONFIG_AUTOBAUD   = 8,            
     /** Gate Driver is installed and ready for operation */  
-    GATE_DRIVER_CONFIG_INSTALLED   = 4,    
+    GATE_DRIVER_CONFIG_INSTALLED   = 4, 
     /** Communication interface between Gate Driver and Controller is
      * established */
     GATE_DRIVER_CONFIG_CONNECTED   = 5, 
@@ -492,6 +503,21 @@ typedef enum tagGATE_DRIVER_STATE_CMD_READ_STATUS
     GATE_DRIVER_STATE_ACK_READ_STATUS1 = 5                               
 }GATE_DRIVER_STATE_CMD_READ_STATUS;
 
+/** 
+ * Gate Driver Configuration States (internal)
+ */ 
+typedef enum tagGATE_DRIVER_STATE_CMD_AUTOBAUD
+{ 
+    /** Gate Driver sends Command to read Gate Driver Status Register 0 */
+    GATE_DRIVER_STATE_AUTOBAUD_REQUEST  = 0, 
+    /** The RX pin is set to receive the response from gate driver  
+     * corresponding to command CMD_READ_STATUS0 */
+    GATE_DRIVER_STATE_AUTOBAUD_CHARACTER_RECIEVE  = 1,
+    /** the response received from gate driver to confirm the reception of 
+     * command CMD_READ_STATUS0 and content of Status Register 0*/
+    GATE_DRIVER_STATE_AUTOBAUD_VERIFY = 2                               
+}GATE_DRIVER_STATE_CMD_AUTOBAUD;
+
 /** Structure to hold internal state variables of the Gate Driver*/
 typedef struct tagGATE_DRIVER_OBJ
 {   
@@ -505,6 +531,8 @@ typedef struct tagGATE_DRIVER_OBJ
     GATE_DRIVER_CONFIG_STATE    configState;
     /** Gate Driver scheduler Timer variable */
     uint16_t timeout;
+    /** Gate Driver scheduler Timer Residual */
+    uint16_t timeoutResidue;
     /**  This variable keeps track of the installation stages*/
     uint16_t installState;
     /** Variable to track number of times Gate Driver Handler retried to operate
@@ -514,6 +542,13 @@ typedef struct tagGATE_DRIVER_OBJ
     uint16_t configRegIndex;
     /** Index to the Status Register GetStatus Function */
     uint16_t statusRegIndex;
+    /** Index to the Auto Baud Synchronize Function */
+    uint16_t autoBaudStateIndex;
+    /** Holds the Auto baud Request from the application*/
+    uint16_t autoBaudRequest;
+    /** Holds the Auto baud Initiate from the application*/
+    uint16_t autoBaudInitiate;
+
     /** Holds the Gate Driver Status 0 Register Value */
     GATE_DRIVER_STATUS0_DATA status0Data ;
     /** Holds the Gate Driver Status 1 Register Value */
@@ -522,6 +557,8 @@ typedef struct tagGATE_DRIVER_OBJ
     GATE_DRIVER_CFG0_DATA cmd0Data;
     /** Holds the Gate Driver Option to send with Gate Driver COMMAND 2  */
     GATE_DRIVER_CFG2_DATA cmd2Data;
+    /** Holds the Baud Rate Value Obtained after the Auto Baud Sequence  */
+    uint16_t de2BaudRateData;
     GATE_DRIVER_HOST_INTERFACE* pHostInterface;
     /** pointer to the GPIO port that controls chip-enable pin for the given
      * instance of PWM driver */

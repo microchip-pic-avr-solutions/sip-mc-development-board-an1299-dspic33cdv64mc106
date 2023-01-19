@@ -43,7 +43,7 @@
 #include "hardware_access_functions.h"
 
 /** Maintains runtime state of Board_Service() or Board_Configure() functions */
-volatile HAL_BOARD_STATUS runtimeState;
+volatile uint16_t runtimeState = 0;
 volatile uint16_t systemState = 0;
 BUTTON_T buttonStartStop;
 BUTTON_T buttonSpeedHalfDouble;

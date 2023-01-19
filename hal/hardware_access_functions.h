@@ -95,7 +95,7 @@ HAL_BOARD_STATUS HAL_Board_Service(void);
  * HAL_Board_Board_FaultClear();
  * <code>
  */
-void HAL_Board_Board_FaultClear(void);
+void HAL_Board_FaultClear(void);
 /**
  * This function can  be called to clear the fault.
  * Summary: Clears Gate Driver Fault Status
@@ -105,6 +105,15 @@ void HAL_Board_Board_FaultClear(void);
  * <code>
  */
 void HAL_Board_FaultSet(void);
+/**
+ * This function can  be called to request auto baud sequence.
+ * Summary: Requests the auto baud sequence 
+ * @example
+ * <code>
+ * HAL_Board_AutoBaudRequest();
+ * <code>
+ */
+void HAL_Board_AutoBaudRequest(void);
 
 extern  GATE_DRIVER_OBJ inverterGateDriver[BSP_GATE_DRIVER_INSTANCE_COUNT];
 #ifdef __cplusplus

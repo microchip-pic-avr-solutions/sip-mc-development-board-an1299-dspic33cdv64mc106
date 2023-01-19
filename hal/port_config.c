@@ -265,7 +265,10 @@ void MapGPIOHWFunction(void)
     TRISCbits.TRISC13 = 0;
     
      configureGateDriverFault();
-    
+    /*Configuring DE2 Pin*/
+     _U2RXR = 60;
+     _RP60R = 3; 
+     
 }
 void configureGateDriverFault(void)
 {
