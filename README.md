@@ -1,6 +1,6 @@
 ![image](images/microchip.jpg) 
 
-## %repoDescritpion%
+## sip mc development board an1292 dspic33cdvl64mc106
 
 Board Image if any.
 
