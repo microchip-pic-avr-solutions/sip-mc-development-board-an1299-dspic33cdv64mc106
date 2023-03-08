@@ -1,0 +1,8 @@
+[submodule "sip-mc-development-board-an1292-dspic33cdvl64mc106/library/library-motor"]
+	path = sip-mc-development-board-an1292-dspic33cdvl64mc106/library/library-motor
+	url = https://github.com/microchip-pic-avr-solutions/library-motor
+	branch = master
+[submodule "sip-mc-development-board-an1292-dspic33cdvl64mc106/library/library-x2cscope"]
+	path = sip-mc-development-board-an1292-dspic33cdvl64mc106/library/library-x2cscope
+	url = https://github.com/microchip-pic-avr-solutions/library-x2cscope
+	branch = master
