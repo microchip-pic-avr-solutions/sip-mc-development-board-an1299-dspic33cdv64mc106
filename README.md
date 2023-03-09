@@ -143,8 +143,8 @@ Follow the below instructions, step by step, to set up and run the motor control
 
 5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.       
         
-      <p align="left">
-      <img  src="images/loadvariables.png"></p>
+     <p align="left">
+     <img  src="images/loadvariables.png"></p>
 
 6. To build the project (in this case, **pmsm.X**) and program the device dsPIC33CDVL64MC106, click **Make and Program Device Main project** on the toolbar
     <p align="left">
@@ -152,7 +152,7 @@ Follow the below instructions, step by step, to set up and run the motor control
   
 7. If the device is successfully programmed, **LD1 (LED1)** will be turned **ON**, indicating that the dsPIC® DSC is enabled.
     <p align="left">
-     <img  src="images/led.PNG"></p>
+    <img  src="images/led.PNG"></p>
 
 
 8. Run or stop the motor by pressing the push button **SW1.** The motor should start spinning smoothly in one direction in the nominal speed range. Ensure that the motor is spinning smoothly without any vibration. The LED **LD2(LED2)** is turned **ON** to show the button is pressed to start the motor.
@@ -166,8 +166,8 @@ Follow the below instructions, step by step, to set up and run the motor control
  
 10. Press the push button **SW2** to enter the extended speed range (<code>NOMINAL_SPEED_RPM</code> to <code>MAXIMUM_SPEED_RPM</code>).
 Press the push button **SW2** again to revert the speed of the motor to its nominal speed range (<code>END_SPEED_RPM</code> to <code>NOMINAL_SPEED_RPM</code>).
-      <p align="left">
-     <img  src="images/pushbutton2.png"></p> 
+     <p align="left">
+     <img  src="images/pushbutton2.PNG"></p> 
 
 11. Press the push button **SW1** to stop the motor.
 
