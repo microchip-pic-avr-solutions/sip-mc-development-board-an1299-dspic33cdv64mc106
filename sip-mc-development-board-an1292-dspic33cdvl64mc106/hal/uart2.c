@@ -54,7 +54,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "UART2.h"
+#include "uart2.h"
 
 // </editor-fold> 
 
