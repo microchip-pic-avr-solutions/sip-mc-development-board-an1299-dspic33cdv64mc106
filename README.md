@@ -1,11 +1,11 @@
 ![image](images/microchip.jpg) 
-## Sensorless FOC using PLL Estimator for PMSM : MCLV-48V-300W and dsPIC33CK256MP508 Motor Control DIM
+## Sensorless FOC using PLL Estimator for PMSM : dsPIC33CDVL64MC106 Motor Control Development Board
 
 
 ## 1. INTRODUCTION
-This document describes the setup requirements for driving a Permanent Magnet Synchronous Motor (PMSM) using Sensorless Field Oriented Control (FOC) and PLL Estimator Algorithms on the hardware platform MCLV-48V-300W Inverter Board and dsPIC33CK256MP508 Motor Control Dual In-line Module (DIM).
+This document describes the setup requirements for driving a Permanent Magnet Synchronous Motor (PMSM) using Sensorless Field Oriented Control (FOC) and PLL Estimator Algorithms on the hardware platform dsPIC33CDVL64MC106 Motor Control Development Board.
 
-For details about PLL estimator refer to Microchip application note [AN1292](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf) “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)”
+For details about PLL estimator, refer to Microchip application note [AN1292](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf) “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)”
 
 </br>
 
@@ -14,21 +14,20 @@ For details about PLL estimator refer to Microchip application note [AN1292](htt
 ### 2.1 Motor Control Application Firmware Required for the Demonstration
 
 To clone or download this application firmware on GitHub, 
-- Navigate to the [main page of this repository](https://github.com/microchip-pic-avr-solutions/mclv-48v-300w-an1292-dspic33ck256mp508) and 
+- Navigate to the [main page of this repository](https://github.com/microchip-pic-avr-solutions/sip-mc-development-board-an1292-dspic33cdvl64mc106) and 
 - On the tab **<> Code**, above the list of files in the right-hand corner, click Code, then from the menu, click **Download ZIP** or copy the repository URL to **clone.**
 > **Note:** </br>
 >In this document, hereinafter this firmware package is referred as **firmware.**
 ### 2.2 Software Tools Used for Testing the firmware
 
-- MPLAB® X IDE **v6.00** 
-- DFP: **dsPIC33CK-MP_DFP v1.9.228**
+- MPLAB® X IDE **v6.05** 
+- DFP: **dsPIC33CD-MC_DFP v1.0.1**
 - MPLAB® XC16 Compiler **v2.00**
 - MPLAB® X IDE Plugin: **X2C-Scope v1.3.3** 
 > **Note:** </br>
 >The software used for testing the firmware prior to release is listed above. It is recommended to use the version listed above or later versions for building the firmware.
 ### 2.3 Hardware Tools Required for the Demonstration
-- MCLV-48V-300W Inverter Board (EV18H47A)
-- dsPIC33CK256MP508 Motor Control Dual In-line Module (EV62P66A)
+- dsPIC33CDVL64MC106 Motor Control Development Board (EV04R09A)
 - 24V Power Supply [(AC002013)](https://www.microchipdirect.com/dev-tools/AC002013)
 - 24V 3-Phase Brushless DC Motor [(AC300020)](https://www.microchip.com/en-us/development-tool/AC300020)
 
@@ -40,40 +39,39 @@ To clone or download this application firmware on GitHub,
 ## 3. HARDWARE SETUP
 This section describes hardware setup required for the demonstration.
 
-1. Motor currents are amplified on the MCLV-48V-300W Inverter Board; it can also be amplified by the amplifiers internal to the dsPIC33CK256MP508 on the DIM. The firmware and DIM are configured to sample and convert internal amplifier outputs (**'internal op-amp configuration'**) by default to measure the motor currents needed to implement FOC.**Table-1** summarizes the resistors to be populated and removed to convert the DIM from **‘internal op-amp configuration’** to **‘external op-amp configuration’** or vice versa.
+1. The blue color power-on LED (LD4) indicates the device dsPIC33CDVL64MC106 is populated on the development board
 
      <p align="left" >
-     <img  src="images/Tableopamp.png"></p>
+     <img  src="images/boardname.PNG"></p>
 
-2. Insert the **dsPIC33CK256MP508 Motor Control DIM** into the DIM Interface **connector J8** on the MCLV-48V-300W Inverter Board. Make sure the DIM is placed correctly and oriented before going ahead.
-
-     <p align="left" >
-     <img  src="images/dimconnected.PNG"></p>
-
-
-3. Connect the 3-phase wires from the motor to PHC, PHB, and PHA of the **connector J4**(no specific order), provided on the MCLV-48V-300W Inverter Board.
+2. Motor currents are amplified on the Motor Control Development Board; it can also be amplified by the amplifiers internal to the device dsPIC33CDVL64MC106. The firmware and development board are configured to sample and convert internal amplifier outputs (**'internal op-amp configuration'**) by default to measure the motor currents needed to implement FOC.**Table-1** summarizes the resistors to be populated and removed to convert the development board from **‘internal op-amp configuration’** to **‘external op-amp configuration’** or vice versa.
 
      <p align="left" >
-      <img  src="images/motorconnection.png"></p>
+     <img  src="images/Tableopamp.PNG"></p>
 
-4. Plug the 24V power supply to **connector J1** on the MCLV-48V-300W Inverter Board. Alternatively, the Inverter Board can also be powered through connector J3.
+3. Connect the 3-phase wires from the motor to PHC, PHB, and PHA of the **connector J10**(no specific order), provided on the dsPIC33CDVL64MC106 Motor Control Development Board.
+
+     <p align="left" >
+      <img  src="images/motorconnection.PNG"></p>
+
+4. Plug the 24V power supply to **connector J1** on the dsPIC33CDVL64MC106 Motor Control Development Board. Alternatively, the development board can also be powered through connector J2.
       <p align="left">
-      <img  src="images/mclvpower.png"></p>
+      <img  src="images/boardpower.PNG"></p>
  
 
- 5. The board has an onboard programmer **PICkit™ On Board (PKoBv4)** , which can be used for programming or debugging the microcontroller or dsPIC DSC on the DIM. To use the onboard programmer, connect a micro-USB cable between the Host PC and **connector J16** on the MCLV-48V-300W Inverter Board.
+ 5. The board has an onboard programmer **PICkit™ On Board (PKoBv4)** , which can be used for programming or debugging the microcontroller or dsPIC DSC on the development board. To use the onboard programmer, connect a micro-USB cable between the Host PC and **connector J12** on the dsPIC33CDVL64MC106 Motor Control Development Board.
       <p align="left">
-     <img  src="images/mclvpkob4.png"></p>
+     <img  src="images/boardpkob.PNG"></p>
 
- 6. Alternatively, connect the Microchip programmer/debugger MPLAB® PICkit™ 4 In-Circuit Debugger between the Host PC used for programming the device and the **ICSP header J9** on the MCLV-48V-300W Inverter Board (as shown). Ensure that PICkit 4 is oriented correctly before proceeding.
+ 6. Alternatively, connect the Microchip programmer/debugger MPLAB® PICkit™ 4 In-Circuit Debugger between the Host PC used for programming the device and the **ICSP header J6** on the dsPIC33CDVL64MC106 Motor Control Development Board (as shown). Ensure that PICkit 4 is oriented correctly before proceeding.
       <p align="left">
-       <img  src="images/mclvprogramming.PNG"></p>
+       <img  src="images/boardpickit.PNG"></p>
  
  </br>
 
 ## 4. SOFTWARE SETUP AND RUN
 ### 4.1 Setup: MPLAB X IDE and MPLAB XC16 Compiler
-Install **MPLAB X IDE** and **MPLAB XC16 Compiler** versions that support the device **dsPIC33CK256MP508** and **PKOBv4.** The MPLAB X IDE, MPLAB XC16 Compiler, and X2C-Scope plug-in used for testing the firmware are mentioned in the [Motor Control Application Firmware Required for the Demonstration](#21-motor-control-application-firmware-required-for-the-demonstration) section. 
+Install **MPLAB X IDE** and **MPLAB XC16 Compiler** versions that support the device **dsPIC33CDVL64MC106** and **PKoBv4.** The MPLAB X IDE, MPLAB XC16 Compiler, and X2C-Scope plug-in used for testing the firmware are mentioned in the [Motor Control Application Firmware Required for the Demonstration](#21-motor-control-application-firmware-required-for-the-demonstration) section. 
 
 To get help on  
 
@@ -87,7 +85,7 @@ X2C-Scope is an MPLAB X IDE plugin that allows developers to interact with an ap
 
 ## 5.  BASIC DEMONSTRATION
 ### 5.1 Firmware Description
-The firmware version needed for the demonstration is mentioned in the section [Motor Control Application Firmware Required for the Demonstration](#21-motor-control-application-firmware-required-for-the-demonstration) section. This firmware is implemented to work on Microchip’s 16-bit Digital signal controller (dsPIC® DSC) **dsPIC33CK256MP508**. For more information, see the **dsPIC33CK256MP508 Family datasheet (DS70005349)**.
+The firmware version needed for the demonstration is mentioned in the section [Motor Control Application Firmware Required for the Demonstration](#21-motor-control-application-firmware-required-for-the-demonstration) section. This firmware is implemented to work on Microchip’s 16-bit Digital signal controller (dsPIC® DSC) **dsPIC33CDVL64MC106**. For more information, see the **dsPIC33CDVL64MC106 Family datasheet (DS70005441)**.
 
 The Motor Control Demo application uses a push button to start or stop the motor and a potentiometer to vary the speed of the motor. This Motor Control Demo Application configures and uses peripherals like PWM, ADC, UART, etc. For more details, refer to Microchip Application note **AN1292, “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW),”** available on the [Microchip website.]((https://www.microchip.com/).)
 
@@ -100,9 +98,9 @@ The Motor Control Demo application uses a push button to start or stop the motor
 ### 5.2 Basic Demonstration
 Follow the below instructions, step by step, to set up and run the motor control demo application:
 
-1. Start **MPLAB X IDE** and open the project **pmsm.X (File > Open Project)** with device selection **dsPIC33CK256MP508.**  
+1. Start **MPLAB X IDE** and open the project **pmsm.X (File > Open Project)** with device selection **dsPIC33CDVL64MC106.**  
     <p align="left">
-       <img  src="images/idedeviceselection.png"></p>
+       <img  src="images/idedeviceselection.PNG"></p>
   
 
 2. Set the project **pmsm.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pmsm.X** will then appear in **bold.**
@@ -129,9 +127,9 @@ Follow the below instructions, step by step, to set up and run the motor control
 4. Right-click on the project **pmsm.X** and select **Properties** to open its **Project Properties** Dialog. Click the **Conf:[default]** category to reveal the general project configuration information. The development tools used for testing the firmware are listed in section [2.2 Software Tools Used for Testing the firmware.](#22-software-tools-used-for-testing-the-firmware).
 
      In the **Conf:[default]** category window: 
-     - Ensure the selected **Device** is **dsPIC33CK256MP508.**
+     - Ensure the selected **Device** is **dsPIC33CDVL64MC106.**
      - Select the **Connected Hardware Tool** to be used for programming and debugging. 
-     - Select the specific Device Family Pack (DFP) from the available list of **Packs.** In this case, **dsPIC33CK-MP_DFP 1.9.228** is selected. 
+     - Select the specific Device Family Pack (DFP) from the available list of **Packs.** In this case, **dsPIC33CD-MC_DFP 1.0.1** is selected. 
      - Select the specific **Compiler Toolchain** from the available list of **XC16** compilers. 
      In this case, **XC16(v2.00)** is selected.
      - After selecting Hardware Tool and Compiler Toolchain, Device Pack, click the button **Apply**
@@ -139,35 +137,35 @@ Follow the below instructions, step by step, to set up and run the motor control
      Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware
 
      <p align="left">
-     <img  src="images/projectpropertiessettings.png"></p>
+     <img  src="images/projectpropertiessettings.PNG"></p>
 
 5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.       
         
       <p align="left">
       <img  src="images/loadvariables.png"></p>
 
-6. To build the project (in this case, **pmsm.X**) and program the device dsPIC33CK256MP508, click **Make and Program Device Main project** on the toolbar
+6. To build the project (in this case, **pmsm.X**) and program the device dsPIC33CDVL64MC106, click **Make and Program Device Main project** on the toolbar
     <p align="left">
     <img  src="images/deviceprogramming.png"></p>
   
-7. If the device is successfully programmed, **LD2 (LED1)** will be turned **ON**, indicating that the dsPIC® DSC is enabled.
+7. If the device is successfully programmed, **LD1 (LED1)** will be turned **ON**, indicating that the dsPIC® DSC is enabled.
     <p align="left">
-     <img  src="images/led.png"></p>
+     <img  src="images/led.PNG"></p>
 
 
-8. Run or stop the motor by pressing the push button **SW1.** The motor should start spinning smoothly in one direction in the nominal speed range. Ensure that the motor is spinning smoothly without any vibration. The LED **LD3(LED2)** is turned **ON** to show the button is pressed to start the motor.
+8. Run or stop the motor by pressing the push button **SW1.** The motor should start spinning smoothly in one direction in the nominal speed range. Ensure that the motor is spinning smoothly without any vibration. The LED **LD2(LED2)** is turned **ON** to show the button is pressed to start the motor.
      <p align="left">
-     <img  src="images/pushbuttons.png"></p>
+     <img  src="images/pushbutton1.PNG"></p>
  
 
 9. The motor speed can be varied using the potentiometer **(POT1).**
     <p align="left">
-    <img  src="images/potentiometer.png"></p>
+    <img  src="images/potentiometer.PNG"></p>
  
 10. Press the push button **SW2** to enter the extended speed range (<code>NOMINAL_SPEED_RPM</code> to <code>MAXIMUM_SPEED_RPM</code>).
 Press the push button **SW2** again to revert the speed of the motor to its nominal speed range (<code>END_SPEED_RPM</code> to <code>NOMINAL_SPEED_RPM</code>).
       <p align="left">
-     <img  src="images/stopButton.png"></p> 
+     <img  src="images/pushbutton2.png"></p> 
 
 11. Press the push button **SW1** to stop the motor.
 
@@ -179,7 +177,7 @@ Press the push button **SW2** again to revert the speed of the motor to its nomi
 
 X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnostics. The application firmware comes with the initialization needed to interface the controller with the host PC to enable data visualization through the X2C-Scope plug-in. Ensure the X2C-Scope plug-in is installed. For more information on how to set up a plug-in, refer to either the [Microchip Developer Help page](https://microchipdeveloper.com/mplabx:tools-plugins-available) or the [web page.](https://x2cscope.github.io/docs/MPLABX_Plugin.html)
  
-1. To establish serial communication with the host PC, connect a micro-USB cable between the host PC and **connector J16** on the MCLV-48V-300W Inverter Board. This interface is also used for programming.
+1. To establish serial communication with the host PC, connect a micro-USB cable between the host PC and **connector J12** on the dsPIC33CDVL64MC106 Motor Control Development Board. This interface is also used for programming.
 
 
 2. Ensure the application is configured and running as described under section [5.2 Basic Demonstration](#52-basic-demonstration) by following steps 1 through 11.
@@ -196,7 +194,7 @@ X2C-Scope is a third-party plug-in in MPLAB X, which helps in real-time diagnost
 5. To configure and establish the serial communication for **X2C-Scope**, open the **X2CScope Configuration** window, click on the **Connection Setup** tab and:
      - Set **Baudrate** as **115200**, which is configured in the application firmware. 
      - Click on the **Refresh** button to refresh and update the list of the available Serial COM ports connected to the Host PC. 
-     - Select the specific **Serial port** detected when interfaced with the MCLV-48V-300W Inverter Board. The **Serial port** depends on the system settings
+     - Select the specific **Serial port** detected when interfaced with the dsPIC33CDVL64MC106 Motor Control Development Board. The **Serial port** depends on the system settings
 
     <p align="left">
      <img  src="images/x2cconnectionsetup.png"></p>
@@ -237,14 +235,12 @@ To view data plots continuously, uncheck **Single-shot.** When **Single-shot** i
 For additional information, refer following documents or links.
 1. AN1292 Application Note “[Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf)”
 2. AN1299 Application Note “[Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM](http://ww1.microchip.com/downloads/en/appnotes/01299a.pdf)”
-3. MCLV-48V-300W Inverter Board User’s Guide (DS50003297) 
-4. dsPIC33CK256MP508 Motor Control Dual In-Line Module (DIM) Information Sheet (DS50003063)
-5. dsPIC33CK256MP508 Family datasheet [(DS70005349)](https://ww1.microchip.com/downloads/en/DeviceDoc/dsPIC33CK256MP508-Family-Data-Sheet-DS70005349H.pdf)
-6. [Family Reference manuals (FRM) of dsPIC33CK256MP508 family](https://www.microchip.com/en-us/product/dsPIC33CK256MP508#document-table)
-7. MPLAB® X IDE User’s Guide (DS50002027) or MPLAB® X IDE help
-8. [MPLAB® X IDE installation](http://microchipdeveloper.com/mplabx:installation)
-9. [MPLAB® XC16 Compiler installation](http://microchipdeveloper.com/xc16:installation)
-10. [Installation and setup of X2Cscope plugin for MPLAB X](https://x2cscope.github.io/docs/MPLABX_Plugin.html)
+3. dsPIC33CDVL64MC106 and dsPIC33CDV64MC106 Motor Control Development Board User’s Guide (DS50003060) 
+4. dsPIC33CDVL64MC106 Family datasheet (DS70005441)
+5. MPLAB® X IDE User’s Guide (DS50002027) or MPLAB® X IDE help
+6. [MPLAB® X IDE installation](http://microchipdeveloper.com/mplabx:installation)
+7. [MPLAB® XC16 Compiler installation](http://microchipdeveloper.com/xc16:installation)
+8. [Installation and setup of X2Cscope plugin for MPLAB X](https://x2cscope.github.io/docs/MPLABX_Plugin.html)
 
 
 
