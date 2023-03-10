@@ -47,22 +47,22 @@ This section describes hardware setup required for the demonstration.
 2. Motor currents are amplified on the Motor Control Development Board; it can also be amplified by the amplifiers internal to the device dsPIC33CDVL64MC106. The firmware and development board are configured to sample and convert internal amplifier outputs (**'internal op-amp configuration'**) by default to measure the motor currents needed to implement FOC.**Table-1** summarizes the resistors to be populated and removed to convert the development board from **‘internal op-amp configuration’** to **‘external op-amp configuration’** or vice versa.
 
      <p align="left" >
-     <img  src="images/Tableopamp.PNG"></p>
+     <img  src="images/Tableopamp.png"></p>
 
 3. Connect the 3-phase wires from the motor to PHC, PHB, and PHA of the **connector J10**(no specific order), provided on the dsPIC33CDVL64MC106 Motor Control Development Board.
 
      <p align="left" >
-     <img  src="images/motorconnection.PNG"></p>
+     <img  src="images/motorconnection.png"></p>
 
 4. Plug the 24V power supply to **connector J1** on the dsPIC33CDVL64MC106 Motor Control Development Board. Alternatively, the development board can also be powered through connector J2.
 
      <p align="left" >
-     <img  src="images/boardpower.PNG"></p>
+     <img  src="images/boardpower.png"></p>
  
 5. The board has an onboard programmer **PICkit™ On Board (PKoBv4)** , which can be used for programming or debugging the microcontroller or dsPIC DSC on the development board. To use the onboard programmer, connect a micro-USB cable between the Host PC and **connector J12** on the dsPIC33CDVL64MC106 Motor Control Development Board.
 
      <p align="left" >
-     <img  src="images/boardpkob.PNG"></p>
+     <img  src="images/boardpkob.png"></p>
 
 6. Alternatively, connect the Microchip programmer/debugger MPLAB® PICkit™ 4 In-Circuit Debugger between the Host PC used for programming the device and the **ICSP header J6** on the dsPIC33CDVL64MC106 Motor Control Development Board (as shown). Ensure that PICkit 4 is oriented correctly before proceeding.
 
@@ -102,7 +102,7 @@ Follow the below instructions, step by step, to set up and run the motor control
 
 1. Start **MPLAB X IDE** and open the project **pmsm.X (File > Open Project)** with device selection **dsPIC33CDVL64MC106.**  
     <p align="left">
-       <img  src="images/idedeviceselection.PNG"></p>
+       <img  src="images/idedeviceselection.png"></p>
   
 
 2. Set the project **pmsm.X** as the main project by right-clicking on the project name and selecting **Set as Main Project** as shown. The project **pmsm.X** will then appear in **bold.**
@@ -139,7 +139,7 @@ Follow the below instructions, step by step, to set up and run the motor control
      Please ensure that the selected MPLAB® XC16 Compiler and Device Pack support the device configured in the firmware
 
      <p align="left">
-     <img  src="images/projectpropertiessettings.PNG"></p>
+     <img  src="images/projectpropertiessettings.png"></p>
 
 5. Ensure that the checkbox **Load symbols when programming or building for production (slows process)** is checked under the **Loading** category of the **Project Properties** window.       
         
@@ -152,7 +152,7 @@ Follow the below instructions, step by step, to set up and run the motor control
   
 7. If the device is successfully programmed, **LD1 (LED1)** will be turned **ON**, indicating that the dsPIC® DSC is enabled.
     <p align="left">
-    <img  src="images/led.PNG"></p>
+    <img  src="images/led.png"></p>
 
 
 8. Run or stop the motor by pressing the push button **SW1.** The motor should start spinning smoothly in one direction in the nominal speed range. Ensure that the motor is spinning smoothly without any vibration. The LED **LD2(LED2)** is turned **ON** to show the button is pressed to start the motor.
@@ -162,7 +162,7 @@ Follow the below instructions, step by step, to set up and run the motor control
 
 9. The motor speed can be varied using the potentiometer **(POT1).**
     <p align="left">
-    <img  src="images/potentiometer.PNG"></p>
+    <img  src="images/potentiometer.png"></p>
  
 10. Press the push button **SW2** to enter the extended speed range (<code>NOMINAL_SPEED_RPM</code> to <code>MAXIMUM_SPEED_RPM</code>).
 Press the push button **SW2** again to revert the speed of the motor to its nominal speed range (<code>END_SPEED_RPM</code> to <code>NOMINAL_SPEED_RPM</code>).
