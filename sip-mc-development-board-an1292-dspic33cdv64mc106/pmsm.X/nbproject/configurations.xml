@@ -86,7 +86,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>dsPIC33CDVL64MC106</targetDevice>
+        <targetDevice>dsPIC33CDV64MC106</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>pkob4hybrid</platformTool>
