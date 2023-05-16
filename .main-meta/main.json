@@ -3,11 +3,11 @@
    "category":"com.microchip.ide.project",
    "content":{
       "metaDataVersion":"1.3.0",
-      "name":"com.microchip.mplabx.project.sip-mc-development-board-an1292-dspic33cdv64mc106",
+      "name":"com.microchip.mplabx.project.sip-mc-development-board-an1299-dspic33cdv64mc106",
       "version":"1.0.0",
-      "displayName":"AN1292 dsPIC33CDV64MC106 Motor Control Development Board",
-      "projectName":"sip-mc-development-board-an1292-dspic33cdv64mc106",
-      "shortDescription":"Sensorless Field Oriented Control of a PMSM with PLL Estimator",
+      "displayName":"AN1299 dsPIC33CDV64MC106 Motor Control Development Board",
+      "projectName":"sip-mc-development-board-an1299-dspic33cdv64mc106",
+      "shortDescription":"Sensorless Field Oriented Control of a PMSM with PLL Estimator and Single-Shunt Current Reconstruction Algorithm",
       "ide":{
          "name":"MPLABX",
          "semverRange":">=6.05"

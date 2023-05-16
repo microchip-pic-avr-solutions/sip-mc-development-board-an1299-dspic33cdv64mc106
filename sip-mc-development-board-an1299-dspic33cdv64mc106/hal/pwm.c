@@ -68,7 +68,7 @@ void InitPWMGenerator2 (void);
 void InitPWMGenerator3 (void);
 void InitDutyPWM123Generators(void);
 void InitPWMGenerators(void);   
-void ChargeBootstarpCapacitors(void);
+void ChargeBootstrapCapacitors(void);
 // *****************************************************************************
 /* Function:
     InitPWMGenerators()
@@ -159,8 +159,6 @@ void InitPWMGenerators(void)
     PG3CONLbits.ON = 1;      // Enable PWM module after initializing generators
     PG1CONLbits.ON = 1;      // Enable PWM module after initializing generators
 
-    /* Function call to charge Bootstrap capacitors*/
-    ChargeBootstarpCapacitors();
 }
 // *****************************************************************************
 /* Function:
@@ -232,7 +230,7 @@ void InitDutyPWM123Generators(void)
   Remarks:
     None.
  */
-void ChargeBootstarpCapacitors(void)
+void ChargeBootstrapCapacitors(void)
 {
     uint16_t i = BOOTSTRAP_CHARGING_COUNTS;
     uint16_t prevStatusCAHALF = 0,currStatusCAHALF = 0;
@@ -254,9 +252,9 @@ void ChargeBootstarpCapacitors(void)
 
     // PDCx: PWMx GENERATOR DUTY CYCLE REGISTER
     // Initialize the PWM duty cycle for charging
-    INVERTERA_PWM_PDC3 = LOOPTIME_TCY - (DDEADTIME/2 + 5);
-    INVERTERA_PWM_PDC2 = LOOPTIME_TCY - (DDEADTIME/2 + 5);
-    INVERTERA_PWM_PDC1 = LOOPTIME_TCY - (DDEADTIME/2 + 5);
+    INVERTERA_PWM_PDC3 = LOOPTIME_TCY - (DEADTIME/2 + 5);
+    INVERTERA_PWM_PDC2 = LOOPTIME_TCY - (DEADTIME/2 + 5);
+    INVERTERA_PWM_PDC1 = LOOPTIME_TCY - (DEADTIME/2 + 5);
     
     while(i)
     {
@@ -329,9 +327,28 @@ void ChargeBootstarpCapacitors(void)
     INVERTERA_PWM_PDC2 = 0;
     INVERTERA_PWM_PDC1 = 0;
 
-    PG3IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM3H pin
-    PG2IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM2H pin
-    PG1IOCONLbits.OVRENH = 0;  // 0 = PWM generator provides data for PWM1H pin
+    /** Set Override Data on all PWM outputs */
+    // 0b00 = State for PWM3H,L, if Override is Enabled
+    PG3IOCONLbits.OVRDAT = 0;
+    // 0b00 = State for PWM2H,L, if Override is Enabled
+    PG2IOCONLbits.OVRDAT = 0; 
+    // 0b00 = State for PWM1H,L, if Override is Enabled
+    PG1IOCONLbits.OVRDAT = 0;  
+    
+    // 1 = OVRDAT<1> provides data for output on PWM3H
+    PG3IOCONLbits.OVRENH = 1; 
+    // 1 = OVRDAT<0> provides data for output on PWM3L
+    PG3IOCONLbits.OVRENL = 1; 
+    
+    // 1 = OVRDAT<1> provides data for output on PWM2H
+    PG2IOCONLbits.OVRENH = 1;
+    // 1 = OVRDAT<0> provides data for output on PWM2L
+    PG2IOCONLbits.OVRENL = 1; 
+    
+    // 1 = OVRDAT<1> provides data for output on PWM1H
+    PG1IOCONLbits.OVRENH = 1;  
+    // 1 = OVRDAT<0> provides data for output on PWM1L
+    PG1IOCONLbits.OVRENL = 1;   
 }
 // *****************************************************************************
 /* Function:
@@ -652,9 +669,9 @@ void InitPWMGenerator1 (void)
     /* Initialize PWM GENERATOR 1 PERIOD REGISTER */
     PG1PER       = 0x0000;
     /* Initialize PWM GENERATOR 1 DEAD-TIME REGISTER LOW */
-    PG1DTL       = DDEADTIME;
+    PG1DTL       = DEADTIME;
     /* Initialize PWM GENERATOR 1 DEAD-TIME REGISTER HIGH */
-    PG1DTH       = DDEADTIME;
+    PG1DTH       = DEADTIME;
 
     /* Initialize PWM GENERATOR 1 TRIGGER A REGISTER */
     PG1TRIGA     = ADC_SAMPLING_POINT;
@@ -977,9 +994,9 @@ void InitPWMGenerator2 (void)
     /* Initialize PWM GENERATOR 2 PERIOD REGISTER */
     PG2PER       = 0x0000;
     /* Initialize PWM GENERATOR 2 DEAD-TIME REGISTER LOW */
-    PG2DTL       = DDEADTIME;
+    PG2DTL       = DEADTIME;
     /* Initialize PWM GENERATOR 2 DEAD-TIME REGISTER HIGH */
-    PG2DTH       = DDEADTIME;
+    PG2DTH       = DEADTIME;
 
     /* Initialize PWM GENERATOR 2 TRIGGER A REGISTER */
     PG2TRIGA     = 0x0000;
@@ -1303,9 +1320,9 @@ void InitPWMGenerator3 (void)
     /* Initialize PWM GENERATOR 3 PERIOD REGISTER */
     PG3PER       = 0x0000;
     /* Initialize PWM GENERATOR 3 DEAD-TIME REGISTER LOW */
-    PG3DTL       = DDEADTIME;
+    PG3DTL       = DEADTIME;
     /* Initialize PWM GENERATOR 3 DEAD-TIME REGISTER HIGH */
-    PG3DTH       = DDEADTIME;
+    PG3DTH       = DEADTIME;
 
     /* Initialize PWM GENERATOR 3 TRIGGER A REGISTER */
     PG3TRIGA     = 0x0000;

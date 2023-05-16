@@ -1,11 +1,13 @@
 ![image](images/microchip.jpg) 
-## Sensorless FOC using PLL Estimator for PMSM : dsPIC33CDV64MC106 Motor Control Development Board
+## Sensorless FOC using PLL Estimator and Single-Shunt Current Reconstruction Algorithm for PMSM : dsPIC33CDV64MC106 Motor Control Development Board
 
 
 ## 1. INTRODUCTION
-This document describes the setup requirements for driving a Permanent Magnet Synchronous Motor (PMSM) using Sensorless Field Oriented Control (FOC) and PLL Estimator algorithms on the hardware platform ch Motor Control Development Board.
+This document describes the setup requirements for driving a Permanent Magnet Synchronous Motor (PMSM) using Sensorless Field Oriented Control (FOC), PLL Estimator and Single-Shunt Current Reconstruction algorithm on the hardware platform dsPIC33CDV64MC106 Motor Control Development Board.
 
-For details about PLL estimator, refer to Microchip application note [AN1292](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf) “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)”
+For details about PLL estimator, refer to Microchip application note [AN1292](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf) “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)”.
+
+For details about Single-Shunt Current Reconstruction algorithm, refer to Microchip application note [AN1299](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ApplicationNotes/ApplicationNotes/01299A.pdf) "Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM".
 
 </br>
 
@@ -14,7 +16,7 @@ For details about PLL estimator, refer to Microchip application note [AN1292](ht
 ### 2.1 Motor Control Application Firmware Required for the Demonstration
 
 To clone or download this application firmware on GitHub, 
-- Navigate to the [main page of this repository](https://github.com/microchip-pic-avr-solutions/sip-mc-development-board-an1292-dspic33cdv64mc106) and 
+- Navigate to the [main page of this repository](https://github.com/microchip-pic-avr-solutions/sip-mc-development-board-an1299-dspic33cdv64mc106) and 
 - On the tab **<> Code**, above the list of files in the right-hand corner, click Code, then from the menu, click **Download ZIP** or copy the repository URL to **clone.**
 > **Note:** </br>
 >In this document, hereinafter this firmware package is referred as **firmware.**
@@ -89,7 +91,7 @@ X2C-Scope is an MPLAB X IDE plugin that allows developers to interact with an ap
 ### 5.1 Firmware Description
 The firmware version needed for the demonstration is mentioned in the section [Motor Control Application Firmware Required for the Demonstration](#21-motor-control-application-firmware-required-for-the-demonstration) section. This firmware is implemented to work on Microchip’s 16-bit Digital signal controller (dsPIC® DSC) **dsPIC33CDV64MC106**. For more information, see the **dsPIC33CDVL64MC106 Family datasheet [(DS70005441)](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ProductDocuments/DataSheets/dsPIC33CDVL64MC106-Family-Data-Sheet-DS70005441.pdf)**.
 
-The Motor Control Demo application uses a push button to start or stop the motor and a potentiometer to vary the speed of the motor. This Motor Control Demo Application configures and uses peripherals like PWM, ADC, UART, etc. For more details, refer to Microchip Application note **AN1292, “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW),”** available on the [Microchip website.]((https://www.microchip.com/).)
+The Motor Control Demo application uses a push button to start or stop the motor and a potentiometer to vary the speed of the motor. This Motor Control Demo Application configures and uses peripherals like PWM, ADC, UART, etc. For more details, refer to Microchip Application note **[AN1292](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf), “Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW),”** and  **[AN1299](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ApplicationNotes/ApplicationNotes/01299A.pdf),"Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM"** available on the [Microchip website](https://www.microchip.com/en-us/application-notes).
 
 > **Note:**</br>
 > The project may not build correctly in Windows OS if the Maximum path length of any source file in the project is more than 260 characters. In case the absolute path exceeds or nears the maximum length, do any (or both) of the following:
@@ -112,7 +114,7 @@ Follow the below instructions, step by step, to set up and run the motor control
 
 	
 3. Open <code>**userparms.h** </code> (**pmsm.X > Header Files**) in the project **pmsm.X.**  
-     - Ensure that the macros <code>**TUNING</code>, <code>OPEN_LOOP_FUNCTIONING</code>, <code>TORQUE_MODE</code>, and <code>SINGLE_SHUNT</code>** is not defined in the header file<code> **userparms.h.**</code>
+     - Ensure that the macros <code>**TUNING</code>, <code>OPEN_LOOP_FUNCTIONING</code>** and **<code>TORQUE_MODE</code>** are not defined, and **<code>SINGLE_SHUNT</code>** is defined in the header file<code> **userparms.h.**</code>
           <p align="left"><img  src="images/configParam.png"></p>
 
      - When internal amplifiers are used for current amplification (referred to as **internal op-amp configuration**), **define** the macro <code>**INTERNAL_OPAMP_CONFIG**</code> in <code>**userparms.h.**</code>
@@ -121,9 +123,8 @@ Follow the below instructions, step by step, to set up and run the motor control
         <p align="left"><img  src="images/externalopampconfig.png"></p> 
 
 > **Note:**</br>
->The motor phase currents can be reconstructed from the DC Bus current by appropriately sampling it during the PWM switching period, called a single-shunt reconstruction algorithm. The firmware can be configured to demonstrate **the single shunt reconstruction algorithm** by defining the macro <code>**SINGLE_SHUNT**</code> in the header file <code>**userparms.h**</code> 
->For additional information, refer to Microchip application note **AN1299, “Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM.”**
->By default, the firmware uses phase currents measured across the phase shunt resistors on two of the half-bridges of the three-phase inverter (**‘dual shunt configuration’**) to implement FOC.
+>The motor phase currents are reconstructed from the DC Bus current by appropriately sampling it during the PWM switching period, called a single-shunt reconstruction algorithm. The firmware is configured to demonstrate **the single shunt reconstruction algorithm** by defining the macro <code>**SINGLE_SHUNT**</code> in the header file <code>**userparms.h**</code>.
+>For additional information, refer to Microchip application note **[AN1299](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ApplicationNotes/ApplicationNotes/01299A.pdf), “Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM.”**
 
 
 4. Right-click on the project **pmsm.X** and select **Properties** to open its **Project Properties** Dialog. Click the **Conf:[default]** category to reveal the general project configuration information. The development tools used for testing the firmware are listed in section [2.2 Software Tools Used for Testing the firmware.](#22-software-tools-used-for-testing-the-firmware).
@@ -237,7 +238,7 @@ To view data plots continuously, uncheck **Single-shot.** When **Single-shot** i
 For additional information, refer following documents or links.
 1. AN1292 Application Note “[Sensorless Field Oriented Control (FOC) for a Permanent Magnet Synchronous Motor (PMSM) Using a PLL Estimator and Field Weakening (FW)](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/01292A.pdf)”
 2. AN1299 Application Note “[Single-Shunt Three-Phase Current Reconstruction Algorithm for Sensorless FOC of a PMSM](http://ww1.microchip.com/downloads/en/appnotes/01299a.pdf)”
-3. dsPIC33CDVL64MC106 and dsPIC33CDV64MC106 Motor Control Development Board User’s Guide [(DS50003060)](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ProductDocuments/UserGuides/dsPIC33CDVL64MC106-and-dsPIC33CDV64MC106-Motor-Control-Development-Board-Users-Guide-DS50003060.pdf) 
+3. dsPIC33CDVL64MC106 and dsPIC33CDV64MC106 Motor Control Development Board User’s Guide [(DS50003060)](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ProductDocuments/UserGuides/dsPIC33CDVL64MC106-and-dsPIC33CDV64MC106-Motor-Control-Development-Boards-Users-Guide-DS50003060.pdf) 
 4. dsPIC33CDVL64MC106 Family datasheet [(DS70005441)](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU16/ProductDocuments/DataSheets/dsPIC33CDVL64MC106-Family-Data-Sheet-DS70005441.pdf)
 5. MPLAB® X IDE User’s Guide (DS50002027) or MPLAB® X IDE help
 6. [MPLAB® X IDE installation](http://microchipdeveloper.com/mplabx:installation)
