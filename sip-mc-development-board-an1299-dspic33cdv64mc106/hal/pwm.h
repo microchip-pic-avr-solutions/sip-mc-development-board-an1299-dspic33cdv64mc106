@@ -87,7 +87,7 @@
 /* Specify PWM Frequency in Hertz */
 #define PWMFREQUENCY_HZ         20000
 /* Specify dead time in micro seconds */
-#define DEADTIME_MICROSEC       1.0
+#define DEADTIME_MICROSEC       1.5
 /* Specify PWM Period in seconds, (1/ PWMFREQUENCY_HZ) */
 #define LOOPTIME_SEC            0.00005
 /* Specify PWM Period in micro seconds */
@@ -102,7 +102,7 @@
 // Definition to enable or disable PWM Fault
 #define ENABLE_PWM_FAULT
         
-#define DDEADTIME               (uint16_t)(DEADTIME_MICROSEC*FOSC_MHZ)
+#define DEADTIME               (uint16_t)(DEADTIME_MICROSEC*FOSC_MHZ)
 // loop time in terms of PWM clock period
 #define LOOPTIME_TCY            (uint16_t)(((LOOPTIME_MICROSEC*FOSC_MHZ)/2)-1)
 
@@ -117,7 +117,8 @@
 // Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-void InitPWMGenerators(void);        
+void InitPWMGenerators(void);
+extern void ChargeBootstrapCapacitors(void);
         
 #ifdef __cplusplus  // Provide C++ Compatibility
     }

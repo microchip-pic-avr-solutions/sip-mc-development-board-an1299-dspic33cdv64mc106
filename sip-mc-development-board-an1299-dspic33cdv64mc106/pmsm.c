@@ -157,6 +157,9 @@ int main ( void )
                 }
                 else
                 {
+                    /* Function call to charge Bootstrap capacitors*/
+                    ChargeBootstrapCapacitors();
+                    
                     EnablePWMOutputsInverterA();
                     uGF.bits.RunMotor = 1;
                     LED2 = 1;
@@ -489,7 +492,7 @@ void DoControl( void )
     None.
  */
 void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
-{
+{  
 #ifdef SINGLE_SHUNT 
     if (IFS4bits.PWM1IF ==1)
     {
@@ -631,7 +634,7 @@ void __attribute__((__interrupt__,no_auto_psv)) _ADCInterrupt()
     }
     /* Read ADC Buffet to Clear Flag */
 	adcDataBuffer = ClearADCIF_ReadADCBUF();
-    ClearADCIF(); 
+    ClearADCIF();   
 }
 // *****************************************************************************
 /* Function:
